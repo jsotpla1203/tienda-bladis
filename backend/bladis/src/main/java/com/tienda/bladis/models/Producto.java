@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Producto {
+  
     private Integer id;
     private static Integer idIncrement;
     private String sku;

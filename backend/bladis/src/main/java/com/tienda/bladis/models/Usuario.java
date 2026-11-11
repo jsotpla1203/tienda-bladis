@@ -3,6 +3,7 @@ package com.tienda.bladis.models;
 import java.time.LocalDate;
 
 public class Usuario {
+  
     private Integer id;
     private static Integer idIncrement;
     private String uid;
