@@ -1,5 +1,7 @@
 package com.tienda.bladis.models;
 
+import com.tienda.bladis.enums.Rol;
+
 import java.time.LocalDate;
 
 public class Usuario {
@@ -10,13 +12,13 @@ public class Usuario {
     private String email;
     private String nombre;
     private String direccionEnvio;
-    private Enum rol;
+    private Rol rol;
     private LocalDate fechaAlta;
 
     public Usuario() {
     }
 
-    public Usuario(String uid, String email, String nombre, String direccionEnvio, Enum rol, LocalDate fechaAlta) {
+    public Usuario(String uid, String email, String nombre, String direccionEnvio, Rol rol, LocalDate fechaAlta) {
         this.uid = uid;
         this.email = email;
         this.nombre = nombre;
@@ -63,11 +65,11 @@ public class Usuario {
         this.direccionEnvio = direccionEnvio;
     }
 
-    public Enum getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(Enum rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
