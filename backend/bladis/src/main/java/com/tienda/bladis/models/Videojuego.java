@@ -1,9 +1,11 @@
 package com.tienda.bladis.models;
 
+import com.tienda.bladis.enums.Plataforma;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Producto {
+public class Videojuego {
   
     private Integer id;
     private static Integer idIncrement;
@@ -17,11 +19,13 @@ public class Producto {
     private Boolean destacado;
     private LocalDate fechaAlta;
     private String categoria;
+    private Plataforma plataforma;
+    private String desarrolladora;
 
-    public Producto() {
+    public Videojuego() {
     }
 
-    public Producto(String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, LocalDate fechaAlta, String categoria) {
+    public Videojuego(String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, LocalDate fechaAlta, String categoria, Plataforma plataforma, String desarrolladora) {
         this.sku = sku;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -32,6 +36,8 @@ public class Producto {
         this.destacado = destacado;
         this.fechaAlta = fechaAlta;
         this.categoria = categoria;
+        this.plataforma = plataforma;
+        this.desarrolladora = desarrolladora;
         this.id = idIncrement;
         idIncrement++;
     }
@@ -118,5 +124,21 @@ public class Producto {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public Plataforma getPlataforma() {
+        return plataforma;
+    }
+
+    public void setPlataforma(Plataforma plataforma) {
+        this.plataforma = plataforma;
+    }
+
+    public String getDesarrolladora() {
+        return desarrolladora;
+    }
+
+    public void setDesarrolladora(String desarrolladora) {
+        this.desarrolladora = desarrolladora;
     }
 }

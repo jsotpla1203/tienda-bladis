@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class LineaPedido {
 
-    private Producto producto;
+    private Videojuego videojuego;
     private String nombreProducto;
     private BigDecimal precioUnitario;
     private Integer cantidad;
@@ -13,12 +13,12 @@ public class LineaPedido {
     public LineaPedido() {
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Videojuego getVideojuego() {
+        return videojuego;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setVideojuego(Videojuego videojuego) {
+        this.videojuego = videojuego;
     }
 
     public String getNombreProducto() {

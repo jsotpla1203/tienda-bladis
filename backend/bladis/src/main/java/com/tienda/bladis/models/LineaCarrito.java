@@ -2,18 +2,18 @@ package com.tienda.bladis.models;
 
 public class LineaCarrito {
 
-    private Producto producto;
+    private Videojuego videojuego;
     private Integer cantidad;
 
     public LineaCarrito() {
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Videojuego getVideojuego() {
+        return videojuego;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setVideojuego(Videojuego videojuego) {
+        this.videojuego = videojuego;
     }
 
     public Integer getCantidad() {
