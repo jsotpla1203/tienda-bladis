@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class Usuario {
   
     private Integer id;
-    private static Integer idIncrement;
+    private static Integer idIncrement = 1;
     private String uid;
     private String email;
     private String nombre;
