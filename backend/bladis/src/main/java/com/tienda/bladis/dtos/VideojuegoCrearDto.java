@@ -1,6 +1,7 @@
 package com.tienda.bladis.dtos;
 
 import com.tienda.bladis.enums.Plataforma;
+import com.tienda.bladis.models.Categoria;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
