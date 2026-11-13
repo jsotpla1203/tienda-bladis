@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Videojuego {
   
     private Integer id;
-    private static Integer idIncrement;
+    private static Integer idIncrement = 1;
     private String sku;
     private String nombre;
     private String descripcion;

@@ -2,7 +2,7 @@ package com.tienda.bladis.models;
 
 public class Categoria {
     private Integer id;
-    private static Integer idIncrement;
+    private static Integer idIncrement = 1;
     private String nombre;
     private String descripcion;
 
