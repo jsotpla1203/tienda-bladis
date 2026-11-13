@@ -5,7 +5,7 @@ import com.tienda.bladis.models.Categoria;
 
 import java.math.BigDecimal;
 
-public class VideojuegoDetalleDTo {
+public class VideojuegoDetalleDto {
 
     private Integer id;
     private String sku;
@@ -20,10 +20,10 @@ public class VideojuegoDetalleDTo {
     private Plataforma plataforma;
     private String desarrolladora;
 
-    public VideojuegoDetalleDTo() {
+    public VideojuegoDetalleDto() {
     }
 
-    public VideojuegoDetalleDTo(Integer id, String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, Categoria categoria, Plataforma plataforma, String desarrolladora) {
+    public VideojuegoDetalleDto(Integer id, String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, Categoria categoria, Plataforma plataforma, String desarrolladora) {
         this.id = id;
         this.sku = sku;
         this.nombre = nombre;
