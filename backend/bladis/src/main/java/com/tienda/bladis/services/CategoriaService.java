@@ -3,9 +3,8 @@ package com.tienda.bladis.services;
 import com.tienda.bladis.dtos.CategoriaCrearDto;
 import com.tienda.bladis.dtos.CategoriaDto;
 import com.tienda.bladis.models.Categoria;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
+    @Autowired
     private final List<Categoria> categorias = new ArrayList<>();
 
     public CategoriaService() {
