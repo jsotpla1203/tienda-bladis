@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Videojuego {
   
     private Integer id;
-    private static Integer idIncrement;
+    private static Integer idIncrement = 1;
     private String sku;
     private String nombre;
     private String descripcion;
@@ -18,14 +18,14 @@ public class Videojuego {
     private Boolean activo;
     private Boolean destacado;
     private LocalDate fechaAlta;
-    private String categoria;
+    private Categoria categoria;
     private Plataforma plataforma;
     private String desarrolladora;
 
     public Videojuego() {
     }
 
-    public Videojuego(String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, LocalDate fechaAlta, String categoria, Plataforma plataforma, String desarrolladora) {
+    public Videojuego(String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, LocalDate fechaAlta, Categoria categoria, Plataforma plataforma, String desarrolladora) {
         this.sku = sku;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -118,11 +118,11 @@ public class Videojuego {
         this.fechaAlta = fechaAlta;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

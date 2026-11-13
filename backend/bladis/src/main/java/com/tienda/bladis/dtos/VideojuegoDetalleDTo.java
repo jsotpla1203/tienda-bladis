@@ -1,6 +1,7 @@
 package com.tienda.bladis.dtos;
 
 import com.tienda.bladis.enums.Plataforma;
+import com.tienda.bladis.models.Categoria;
 
 import java.math.BigDecimal;
 
@@ -15,14 +16,14 @@ public class VideojuegoDetalleDTo {
     private String imagenUrl;
     private Boolean activo;
     private Boolean destacado;
-    private String categoria;
+    private Categoria categoria;
     private Plataforma plataforma;
     private String desarrolladora;
 
     public VideojuegoDetalleDTo() {
     }
 
-    public VideojuegoDetalleDTo(Integer id, String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, String categoria, Plataforma plataforma, String desarrolladora) {
+    public VideojuegoDetalleDTo(Integer id, String sku, String nombre, String descripcion, BigDecimal precio, Integer stock, String imagenUrl, Boolean activo, Boolean destacado, Categoria categoria, Plataforma plataforma, String desarrolladora) {
         this.id = id;
         this.sku = sku;
         this.nombre = nombre;
@@ -109,11 +110,11 @@ public class VideojuegoDetalleDTo {
         this.destacado = destacado;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

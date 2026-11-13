@@ -10,5 +10,6 @@ public enum Plataforma {
     SWITCH,
     XBOXONE,
     XBOX360,
+    XBOX_SERIES_X,
     WII
 }
