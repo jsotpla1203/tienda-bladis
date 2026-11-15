@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
-
     public final List<Categoria> categorias = new ArrayList<>(List.of(
             new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"),
             new Categoria("Shooter", "Juegos de combate y disparos"),
@@ -24,7 +23,6 @@ public class CategoriaService {
             new Categoria("Aventura", "Juegos de exploración y aventuras con grandes historias"),
             new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos")
     ));
-    private final List<Categoria> categorias = new ArrayList<>();
 
     public CategoriaService() {
         categorias.add(new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"));
