@@ -6,7 +6,6 @@ import com.tienda.bladis.exceptions.ConflictoException;
 import com.tienda.bladis.exceptions.RecursoNoEncontradoException;
 import com.tienda.bladis.models.Categoria;
 import com.tienda.bladis.models.Videojuego;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,9 +14,6 @@ import java.util.List;
 
 @Service
 public class CategoriaService {
-
-    @Autowired
-    VideojuegoService videojuegoService;
 
     private final List<Categoria> categorias = new ArrayList<>();
 
@@ -105,7 +101,7 @@ public class CategoriaService {
         return respuesta;
     }
 
-    public void borrarCategoria(Integer id, CategoriaDto categoriaDto) {
+    public void borrarCategoria(Integer id, List<Videojuego> videojuegos) {
         Categoria categoria = null;
 
         for (Categoria cat : categorias) {
@@ -117,8 +113,7 @@ public class CategoriaService {
             throw new RecursoNoEncontradoException("No se ha encontrado la categoria con el id: " + id);
         }
 
-
-        for (Videojuego videojuego : videojuegoService.videojuegos) {
+        for (Videojuego videojuego : videojuegos) {
             if (videojuego.getCategoria().equals(categoria)) {
                 throw new ConflictoException("Esta categoría tiene un producto");
             }

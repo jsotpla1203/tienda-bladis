@@ -3,6 +3,7 @@ package com.tienda.bladis.controllers;
 import com.tienda.bladis.dtos.CategoriaCrearDto;
 import com.tienda.bladis.dtos.CategoriaDto;
 import com.tienda.bladis.services.CategoriaService;
+import com.tienda.bladis.services.VideojuegoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class CategoriaController {
 
     @Autowired
     private CategoriaService categoriaService;
+
+    @Autowired
+    private VideojuegoService videojuegoService;
 
     @GetMapping("/categorias")
     public ResponseEntity<?> listarCategorias(){
@@ -54,9 +58,8 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/admin/categorias/{id}")
-    public ResponseEntity<Void> borrarCategoria(@PathVariable Integer id,
-                                             @RequestBody CategoriaDto categoria){
-        categoriaService.borrarCategoria(id, categoria);
+    public ResponseEntity<Void> borrarCategoria(@PathVariable Integer id){
+        categoriaService.borrarCategoria(id, videojuegoService.videojuegos);
 
         return ResponseEntity.noContent().build();
     }
