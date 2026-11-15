@@ -43,7 +43,7 @@ public class CategoriaController {
         return ResponseEntity.ok(lista);
     }
 
-    @PostMapping("admin/categorias")
+    @PostMapping("/admin/categorias")
     public ResponseEntity<?> crearCategoria(@RequestBody CategoriaCrearDto categoria){
         CategoriaDto nuevaCat = categoriaService.crearCategoria(categoria);
 
