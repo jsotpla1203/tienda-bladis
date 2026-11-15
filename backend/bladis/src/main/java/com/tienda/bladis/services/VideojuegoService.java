@@ -2,6 +2,7 @@ package com.tienda.bladis.services;
 
 import com.tienda.bladis.dtos.VideojuegoCrearDto;
 import com.tienda.bladis.dtos.VideojuegoDetalleDto;
+import com.tienda.bladis.dtos.VideojuegoFiltroDto;
 import com.tienda.bladis.dtos.VideojuegoResumenDto;
 import com.tienda.bladis.enums.Plataforma;
 import com.tienda.bladis.exceptions.ConflictoException;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class VideojuegoService {
