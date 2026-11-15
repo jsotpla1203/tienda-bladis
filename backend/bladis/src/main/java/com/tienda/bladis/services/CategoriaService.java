@@ -15,6 +15,15 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
+
+    public final List<Categoria> categorias = new ArrayList<>(List.of(
+            new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"),
+            new Categoria("Shooter", "Juegos de combate y disparos"),
+            new Categoria("Moba", "Juegos de Multijugador en Línea"),
+            new Categoria("Terror", "Juegos de terror"),
+            new Categoria("Aventura", "Juegos de exploración y aventuras con grandes historias"),
+            new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos")
+    ));
     private final List<Categoria> categorias = new ArrayList<>();
 
     public CategoriaService() {
@@ -37,6 +46,7 @@ public class CategoriaService {
 
             listaResultado.add(dto);
         }
+
         return listaResultado;
     }
 

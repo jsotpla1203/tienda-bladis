@@ -2,6 +2,7 @@ package com.tienda.bladis.controllers;
 
 import com.tienda.bladis.dtos.VideojuegoCrearDto;
 import com.tienda.bladis.dtos.VideojuegoDetalleDto;
+import com.tienda.bladis.models.Videojuego;
 import com.tienda.bladis.dtos.VideojuegoFiltroDto;
 import com.tienda.bladis.services.CategoriaService;
 import com.tienda.bladis.services.VideojuegoService;
@@ -27,11 +28,7 @@ public class VideojuegoController {
 
         VideojuegoDetalleDto videojuegoDto = videojuegoService.devolverVideojuegoActivo(id);
 
-        if(videojuegoDto == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } else {
-            return ResponseEntity.ok(videojuegoDto);
-        }
+        return ResponseEntity.ok(videojuegoDto);
     }
 
     @GetMapping("/videojuegos/destacados")
@@ -39,16 +36,16 @@ public class VideojuegoController {
         return ResponseEntity.ok(videojuegoService.devolverVideojuegosActivos());
     }
 
-    @GetMapping("/admin/videojuegos/")
+    @GetMapping("/admin/videojuegos")
     public ResponseEntity<?> listarProductos() {
         return ResponseEntity.ok(videojuegoService.devolverVideojuegos());
     }
 
-    @PostMapping("/admin/videojuegos/")
+    @PostMapping("/admin/videojuegos")
     public ResponseEntity<?> crearProducto(@RequestBody VideojuegoCrearDto videojuego) {
 
-        System.out.println(videojuego.getCategoria());
+        VideojuegoDetalleDto videojuegoDetalle = videojuegoService.crearVideojuego(videojuego);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(videojuegoDetalle);
     }
 }
