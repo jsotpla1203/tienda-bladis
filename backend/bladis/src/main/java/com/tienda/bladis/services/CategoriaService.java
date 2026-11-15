@@ -13,17 +13,14 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
-    @Autowired
-    private final List<Categoria> categorias = new ArrayList<>();
-
-    public CategoriaService() {
-        categorias.add(new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"));
-        categorias.add(new Categoria("Shooter", "Juegos de combate y disparos"));
-        categorias.add(new Categoria("Moba", "Juegos de Multijugador en Línea"));
-        categorias.add(new Categoria("Terror", "Juegos de terror"));
-        categorias.add(new Categoria("Aventura", "Juegos de exploración y aventuras con grandes historias"));
-        categorias.add(new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos"));
-    }
+    public final List<Categoria> categorias = new ArrayList<>(List.of(
+            new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"),
+            new Categoria("Shooter", "Juegos de combate y disparos"),
+            new Categoria("Moba", "Juegos de Multijugador en Línea"),
+            new Categoria("Terror", "Juegos de terror"),
+            new Categoria("Aventura", "Juegos de exploración y aventuras con grandes historias"),
+            new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos")
+    ));
 
     public List<CategoriaDto> listarTodas(){
         List<CategoriaDto> listaResultado = new ArrayList<>();
@@ -36,6 +33,7 @@ public class CategoriaService {
 
             listaResultado.add(dto);
         }
+
         return listaResultado;
     }
 

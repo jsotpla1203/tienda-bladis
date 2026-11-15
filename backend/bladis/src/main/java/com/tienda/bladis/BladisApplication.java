@@ -9,5 +9,4 @@ public class BladisApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BladisApplication.class, args);
 	}
-
 }
