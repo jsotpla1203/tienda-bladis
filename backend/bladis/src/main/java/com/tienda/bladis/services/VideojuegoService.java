@@ -1,19 +1,17 @@
 package com.tienda.bladis.services;
 
 import com.tienda.bladis.dtos.VideojuegoCrearDto;
-import com.tienda.bladis.dtos.VideojuegoDetalleDTo;
+import com.tienda.bladis.dtos.VideojuegoDetalleDto;
 import com.tienda.bladis.dtos.VideojuegoResumenDto;
 import com.tienda.bladis.enums.Plataforma;
 import com.tienda.bladis.models.Categoria;
 import com.tienda.bladis.models.Videojuego;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VideojuegoService {
@@ -91,11 +89,11 @@ public class VideojuegoService {
             )
     ));
 
-    public VideojuegoDetalleDTo devolverVideojuegoActivo(Integer id) {
+    public VideojuegoDetalleDto devolverVideojuegoActivo(Integer id) {
 
         for(Videojuego videojuego1:videojuegos) {
             if(videojuego1.getId().equals(id) && videojuego1.getActivo()) {
-                return new VideojuegoDetalleDTo(
+                return new VideojuegoDetalleDto(
                         videojuego1.getId(),
                         videojuego1.getSku(),
                         videojuego1.getNombre(),
@@ -159,7 +157,7 @@ public class VideojuegoService {
         return listaVideojuegos;
     }
 
-    public VideojuegoDetalleDTo crearVideojuego(VideojuegoCrearDto videojuego) {
+    public VideojuegoDetalleDto crearVideojuego(VideojuegoCrearDto videojuego) {
 
         return null;
     }
