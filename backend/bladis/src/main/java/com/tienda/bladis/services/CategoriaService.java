@@ -24,15 +24,6 @@ public class CategoriaService {
             new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos")
     ));
 
-    public CategoriaService() {
-        categorias.add(new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"));
-        categorias.add(new Categoria("Shooter", "Juegos de combate y disparos"));
-        categorias.add(new Categoria("Moba", "Juegos de Multijugador en Línea"));
-        categorias.add(new Categoria("Terror", "Juegos de terror"));
-        categorias.add(new Categoria("Aventura", "Juegos de exploración y aventuras con grandes historias"));
-        categorias.add(new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos"));
-    }
-
     public List<CategoriaDto> listarTodas(){
         List<CategoriaDto> listaResultado = new ArrayList<>();
 
