@@ -1,5 +1,6 @@
 package com.tienda.bladis.controllers;
 
+import com.tienda.bladis.dtos.StockDto;
 import com.tienda.bladis.dtos.VideojuegoCrearDto;
 import com.tienda.bladis.dtos.VideojuegoDetalleDto;
 import com.tienda.bladis.models.Videojuego;
@@ -24,7 +25,7 @@ public class VideojuegoController {
     private CategoriaService categoriaService;
 
     @GetMapping("/videojuegos/{id}")
-    public ResponseEntity<?> mostrarProducto(@PathVariable Integer id) {
+    public ResponseEntity<?> mostrarVideojuego(@PathVariable Integer id) {
 
         VideojuegoDetalleDto videojuegoDto = videojuegoService.devolverVideojuegoActivo(id);
 
@@ -37,14 +38,51 @@ public class VideojuegoController {
     }
 
     @GetMapping("/admin/videojuegos")
-    public ResponseEntity<?> listarProductos() {
+    public ResponseEntity<?> listarVideojuegos() {
         return ResponseEntity.ok(videojuegoService.devolverVideojuegos());
     }
 
     @PostMapping("/admin/videojuegos")
-    public ResponseEntity<?> crearProducto(@RequestBody VideojuegoCrearDto videojuego) {
+    public ResponseEntity<?> crearVideojuego(@RequestBody VideojuegoCrearDto videojuego) {
 
         VideojuegoDetalleDto videojuegoDetalle = videojuegoService.crearVideojuego(videojuego);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(videojuegoDetalle);
+    }
+
+    @PutMapping("/admin/videojuegos/{id}")
+    public ResponseEntity<?> actualizarVideojuego(
+            @PathVariable Integer id,
+            @RequestBody VideojuegoCrearDto videojuego) {
+
+        VideojuegoDetalleDto videojuegoDetalle = videojuegoService.actualizarVideojuego(id, videojuego);
+
+        return ResponseEntity.ok(videojuegoDetalle);
+    }
+
+    @DeleteMapping("/admin/videojuegos/{id}")
+    public ResponseEntity<?> borrarVideojuego(@PathVariable Integer id) {
+
+        videojuegoService.borrarVideojuego(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+    }
+
+    @PutMapping("/admin/videojuegos/{id}/stock")
+    public ResponseEntity<?> actualizarStock(
+            @PathVariable Integer id,
+            @RequestBody StockDto stockDto) {
+
+        VideojuegoDetalleDto videojuegoDetalle = videojuegoService.actualizarStock(id, stockDto);
+
+        return ResponseEntity.ok(videojuegoDetalle);
+    }
+
+    @PutMapping("/admin/videojuegos/{id}/reactivar")
+    public ResponseEntity<?> reactivarVideojuego(@PathVariable Integer id) {
+
+        VideojuegoDetalleDto videojuegoDetalle = videojuegoService.reactivarVideojuego(id);
 
         return ResponseEntity.ok(videojuegoDetalle);
     }

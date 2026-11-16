@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
-
     public final List<Categoria> categorias = new ArrayList<>(List.of(
             new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"),
             new Categoria("Shooter", "Juegos de combate y disparos"),
