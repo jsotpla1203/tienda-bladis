@@ -25,6 +25,7 @@ public class CategoriaService {
     ));
 
     public List<CategoriaDto> listarTodas(){
+
         List<CategoriaDto> listaResultado = new ArrayList<>();
 
         for (Categoria cat : categorias){
@@ -70,6 +71,7 @@ public class CategoriaService {
     }
 
     public CategoriaDto modificarCategoria(Integer id, CategoriaCrearDto categoriaCrearDto){
+
         Categoria categoriaMod = null;
 
         for (Categoria cat : categorias){
@@ -101,6 +103,7 @@ public class CategoriaService {
     }
 
     public void borrarCategoria(Integer id, List<Videojuego> videojuegos) {
+
         Categoria categoria = null;
 
         for (Categoria cat : categorias) {
