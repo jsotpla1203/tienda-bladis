@@ -7,6 +7,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.tienda.bladis.dtos.UsuarioActualizarDto;
 import com.tienda.bladis.dtos.UsuarioDto;
 import com.tienda.bladis.enums.Rol;
+import com.tienda.bladis.exceptions.ErrorBaseDatosException;
 import com.tienda.bladis.exceptions.FormatoInvalidoException;
 import com.tienda.bladis.exceptions.RecursoNoEncontradoException;
 import com.tienda.bladis.models.Usuario;
@@ -26,7 +27,7 @@ public class UsuarioService {
     @Value("${tienda.admins:}")
     private String adminsConfig;
 
-    // 1. Busca el usuario en Firestore. Si es su primera vez, lo crea y lo guarda en la nube.
+    //Busca el usuario en Firestore. Si es su primera vez, lo crea y lo guarda en la nube.
     public Usuario obtenerOCrearUsuario(String uid, String email, String nombreFirebase) {
         try {
             Firestore db = FirestoreClient.getFirestore();
@@ -62,8 +63,8 @@ public class UsuarioService {
             db.collection(COLECCION_USUARIOS).document(uid).set(nuevo).get();
             return nuevo;
 
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException("Error al conectar con Firestore", e);
+        } catch (Exception e) {
+            throw new ErrorBaseDatosException("Error al conectar con Firestore");
         }
     }
 
@@ -81,11 +82,12 @@ public class UsuarioService {
 
         try {
             Firestore db = FirestoreClient.getFirestore();
-            // Sobrescribimos el documento en Firestore con los datos actualizados
+
+            //Sobrescribimos el documento en Firestore con los datos actualizados
             db.collection(COLECCION_USUARIOS).document(usuarioActual.getUid()).set(usuarioActual).get();
             return convertirADto(usuarioActual);
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException("Error al actualizar el usuario en Firestore", e);
+        } catch (Exception e) {
+            throw new ErrorBaseDatosException("Error al actualizar el usuario en Firestore");
         }
     }
 
@@ -100,8 +102,8 @@ public class UsuarioService {
                 lista.add(convertirADto(u));
             }
             return lista;
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException("Error al listar usuarios de Firestore", e);
+        } catch (Exception e) {
+            throw new ErrorBaseDatosException("Error al listar usuarios de Firestore");
         }
     }
 
@@ -123,8 +125,8 @@ public class UsuarioService {
                 }
             }
             throw new RecursoNoEncontradoException("No existe ningún usuario con ID: " + id);
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException("Error al cambiar el rol en Firestore", e);
+        } catch (Exception e) {
+            throw new ErrorBaseDatosException("Error al cambiar el rol en Firestore");
         }
     }
 
