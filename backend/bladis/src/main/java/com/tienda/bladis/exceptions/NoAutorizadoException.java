@@ -1,7 +1,11 @@
 package com.tienda.bladis.exceptions;
 
-public class NoAutorizadoException extends RuntimeException {
-  public NoAutorizadoException(String message) {
-    super(message);
-  }
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.server.ResponseStatusException;
+
+public class NoAutorizadoException extends ResponseStatusException {
+    public NoAutorizadoException(String message) {
+        super(HttpStatus.UNAUTHORIZED, message);
+    }
 }
