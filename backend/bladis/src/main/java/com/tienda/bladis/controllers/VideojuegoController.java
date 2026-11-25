@@ -116,13 +116,13 @@ public class VideojuegoController {
 
     @GetMapping("/videojuegos/precio")
     public ResponseEntity<?> filtrarPorPrecio(
-            @RequestParam(required = false) Integer precioMin,
-            @RequestParam(required = false) Integer precioMax
+            @RequestParam(required = false) BigDecimal precioMin,
+            @RequestParam(required = false) BigDecimal precioMax
     ) {
 
         VideojuegoFiltroDto filtros = new VideojuegoFiltroDto();
-        filtros.setPrecioMax(BigDecimal.valueOf(precioMax));
-        filtros.setPrecioMax(BigDecimal.valueOf(precioMin));
+        filtros.setPrecioMin(precioMin);
+        filtros.setPrecioMax(precioMax);
 
         return ResponseEntity.ok(videojuegoService.filtrarPrecio(filtros));
     }
