@@ -1,9 +1,8 @@
 package com.tienda.bladis.services;
 
-import com.tienda.bladis.dtos.StockDto;
-import com.tienda.bladis.dtos.VideojuegoCrearDto;
-import com.tienda.bladis.dtos.VideojuegoDetalleDto;
-import com.tienda.bladis.dtos.VideojuegoResumenDto;
+import com.tienda.bladis.dtos.*;
+import com.tienda.bladis.enums.Direccion;
+import com.tienda.bladis.enums.Orden;
 import com.tienda.bladis.enums.Plataforma;
 import com.tienda.bladis.exceptions.ConflictoException;
 import com.tienda.bladis.exceptions.FormatoInvalidoException;
@@ -12,12 +11,12 @@ import com.tienda.bladis.models.Categoria;
 import com.tienda.bladis.models.Videojuego;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -161,6 +160,7 @@ public class VideojuegoService {
             listaVideojuegos.add(new VideojuegoResumenDto(
                 videojuego1.getId(),
                 videojuego1.getSku(),
+
                 videojuego1.getNombre(),
                 videojuego1.getPrecio(),
                 videojuego1.getImagenUrl(),
@@ -317,6 +317,28 @@ public class VideojuegoService {
         );
     }
 
+    public List<VideojuegoResumenDto> crearListaVideojuegoResumenDto(List<Videojuego> videojuegos) {
+
+        List<VideojuegoResumenDto> videojuegoResumenDtoList = new ArrayList<>();
+
+        for(Videojuego videojuego:videojuegos) {
+
+            videojuegoResumenDtoList.add(new VideojuegoResumenDto(
+                    videojuego.getId(),
+                    videojuego.getSku(),
+                    videojuego.getNombre(),
+                    videojuego.getPrecio(),
+                    videojuego.getImagenUrl(),
+                    videojuego.getDestacado(),
+                    videojuego.getCategoria(),
+                    videojuego.getPlataforma(),
+                    videojuego.getDesarrolladora()
+            ));
+        }
+
+        return videojuegoResumenDtoList;
+    }
+
     public boolean estaVacio(Object valor) {
         return valor == null;
     }
@@ -415,5 +437,125 @@ public class VideojuegoService {
         }
 
         return categoriaBuscada;
+    }
+
+    public List<VideojuegoResumenDto> filtrarCategoria(VideojuegoFiltroDto filtros) {
+
+        List<Videojuego> videojuegosList = videojuegos.stream().
+                filter(v -> filtros.getCategoriaId() == null ||
+                        v.getCategoria().getId().equals(filtros.getCategoriaId()))
+                .toList();
+
+        return crearListaVideojuegoResumenDto(videojuegosList);
+    }
+
+    public List<VideojuegoResumenDto> filtrarNombreDescripcion(VideojuegoFiltroDto filtros) {
+
+        List<Videojuego> videojuegosList = videojuegos.stream().
+                filter(v -> filtros.getQ() == null ||
+                        v.getNombre().equalsIgnoreCase(filtros.getQ().trim()) ||
+                        v.getDescripcion().equalsIgnoreCase(filtros.getQ().trim()))
+                .toList();
+
+        return crearListaVideojuegoResumenDto(videojuegosList);
+    }
+
+    public List<VideojuegoResumenDto> filtrarPrecio(VideojuegoFiltroDto filtros) {
+
+        if(filtros.getPrecioMin() != null && filtros.getPrecioMax() == null && filtros.getPrecioMax().compareTo(filtros.getPrecioMin()) < 0) {
+            throw new FormatoInvalidoException("El precio maximo no puede ser menor al minimo");
+        }
+
+        List<Videojuego> videojuegosList = videojuegos.stream().
+                filter(v -> filtros.getSoloDisponibles() == null ||
+                        !filtros.getSoloDisponibles() || v.getActivo() && v.getStock() > 0)
+                .toList();
+
+        return crearListaVideojuegoResumenDto(videojuegosList);
+    }
+
+    public List<VideojuegoResumenDto> filtrarDisponibles(VideojuegoFiltroDto filtros) {
+
+        List<Videojuego> videojuegosList = videojuegos.stream().
+                filter(v -> filtros.getSoloDisponibles() == null ||
+                        !filtros.getSoloDisponibles() || v.getActivo() && v.getStock() > 0)
+                .toList();
+
+        return crearListaVideojuegoResumenDto(videojuegosList);
+    }
+
+    public List<VideojuegoResumenDto> filtrarOrdenDireccion(VideojuegoFiltroDto filtros) {
+
+        List<Videojuego> videojuegoList;
+
+        Comparator<Videojuego> comparator = null;
+
+        if(Orden.NOMBRE.equals(filtros.getOrden())) {
+
+            comparator = Comparator.comparing(Videojuego::getNombre);
+
+        } else if(Orden.NOVEDAD.equals(filtros.getOrden())) {
+
+            comparator = Comparator.comparing(Videojuego::getFechaAlta);
+
+        } else if(Orden.PRECIO.equals(filtros.getOrden())) {
+
+            comparator = Comparator.comparing(Videojuego::getPrecio);
+
+        }
+
+        if(comparator != null) {
+
+            if(Direccion.DESC.equals(filtros.getDireccion())) {
+                comparator = comparator.reversed();
+            }
+
+            videojuegoList = videojuegos.stream()
+                    .sorted(comparator)
+                    .toList();
+        } else {
+
+            videojuegoList = videojuegos.stream()
+                    .toList();
+        }
+
+        return crearListaVideojuegoResumenDto(videojuegoList);
+    }
+
+    public List<VideojuegoResumenDto> filtrarPlataforma(VideojuegoFiltroDto filtros) {
+
+        List<Videojuego> videojuegosList = videojuegos.stream().
+                filter(v -> filtros.getPlataforma() == null ||
+                        filtros.getPlataforma().equals(v.getPlataforma()))
+                .toList();
+
+        return crearListaVideojuegoResumenDto(videojuegosList);
+    }
+
+    public VideojuegoDetalleDto filtrarSku(VideojuegoFiltroDto filtros) {
+
+        Videojuego videojuegoSku;
+
+        if(filtros.getSku() != null) {
+
+            for(Videojuego videojuego:videojuegos) {
+
+                if(filtros.getSku().equals(videojuego.getSku())) {
+                    return crearVideojuegoDetalleDto(videojuego);
+                }
+            }
+        }
+
+        throw new RecursoNoEncontradoException("No se ha encontrado el videojuego");
+    }
+
+    public List<VideojuegoResumenDto> filtrarStock(VideojuegoFiltroDto filtros) {
+
+        List<Videojuego> videojuegosList = videojuegos.stream().
+                filter(v -> filtros.getUmbral() == null ||
+                        v.getStock() <= filtros.getUmbral())
+                .toList();
+
+        return crearListaVideojuegoResumenDto(videojuegosList);
     }
 }
