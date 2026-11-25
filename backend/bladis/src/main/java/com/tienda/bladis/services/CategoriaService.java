@@ -24,8 +24,16 @@ public class CategoriaService {
             new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos")
     ));
 
-    public List<CategoriaDto> listarTodas(){
+    public CategoriaService() {
+        categorias.add(new Categoria("RPG", "Juegos de rol con progreso de personaje y mundo abierto"));
+        categorias.add(new Categoria("Shooter", "Juegos de combate y disparos"));
+        categorias.add(new Categoria("Moba", "Juegos de Multijugador en Línea"));
+        categorias.add(new Categoria("Terror", "Juegos de terror"));
+        categorias.add(new Categoria("Aventura", "Juegos de exploración y aventuras con grandes historias"));
+        categorias.add(new Categoria("CienciaFiccion", "Juegos futuristas y escenarios fantasticos"));
+    }
 
+    public List<CategoriaDto> listarTodas(){
         List<CategoriaDto> listaResultado = new ArrayList<>();
 
         for (Categoria cat : categorias){
@@ -71,7 +79,6 @@ public class CategoriaService {
     }
 
     public CategoriaDto modificarCategoria(Integer id, CategoriaCrearDto categoriaCrearDto){
-
         Categoria categoriaMod = null;
 
         for (Categoria cat : categorias){
@@ -103,7 +110,6 @@ public class CategoriaService {
     }
 
     public void borrarCategoria(Integer id, List<Videojuego> videojuegos) {
-
         Categoria categoria = null;
 
         for (Categoria cat : categorias) {

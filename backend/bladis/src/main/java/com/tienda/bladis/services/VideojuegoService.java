@@ -3,6 +3,9 @@ package com.tienda.bladis.services;
 import com.tienda.bladis.dtos.*;
 import com.tienda.bladis.enums.Direccion;
 import com.tienda.bladis.enums.Orden;
+import com.tienda.bladis.dtos.VideojuegoCrearDto;
+import com.tienda.bladis.dtos.VideojuegoDetalleDto;
+import com.tienda.bladis.dtos.VideojuegoResumenDto;
 import com.tienda.bladis.enums.Plataforma;
 import com.tienda.bladis.exceptions.ConflictoException;
 import com.tienda.bladis.exceptions.FormatoInvalidoException;
@@ -199,121 +202,19 @@ public class VideojuegoService {
 
         videojuegos.add(videojuegoNuevo);
 
-        return crearVideojuegoDetalleDto(videojuegoNuevo);
-    }
-
-    public VideojuegoDetalleDto actualizarVideojuego(Integer id, VideojuegoCrearDto videojuego) {
-
-        validarNulls(videojuego);
-        validarReglas(videojuego);
-        validarSku(videojuego.getSku());
-
-        Categoria categoria = buscarCategoria(videojuego.getCategoria());
-
-        Videojuego videojuegoActualizar = null;
-
-        for(Videojuego videojuegoBuscado : videojuegos) {
-            if(videojuegoBuscado.getId().equals(id)) {
-                videojuegoActualizar = videojuegoBuscado;
-            }
-        }
-
-        if(videojuegoActualizar == null) {
-            throw new RecursoNoEncontradoException("No se ha encontrado el Videojuego con ID " + id);
-        }
-
-        videojuegoActualizar.setSku(videojuego.getSku());
-        videojuegoActualizar.setNombre(videojuego.getNombre());
-        videojuegoActualizar.setDescripcion(videojuego.getDescripcion());
-        videojuegoActualizar.setPrecio(videojuego.getPrecio());
-        videojuegoActualizar.setStock(videojuego.getStock());
-        videojuegoActualizar.setImagenUrl(videojuego.getImagenUrl());
-        videojuegoActualizar.setDestacado(videojuego.getDestacado());
-        videojuegoActualizar.setCategoria(categoria);
-        videojuegoActualizar.setPlataforma(videojuego.getPlataforma());
-        videojuegoActualizar.setDesarrolladora(videojuego.getDesarrolladora());
-
-        return crearVideojuegoDetalleDto(videojuegoActualizar);
-    }
-
-    public void borrarVideojuego(Integer id) {
-
-        Videojuego videojuegoBorrar = null;
-
-        for(Videojuego videojuegoBuscado : videojuegos) {
-            if(videojuegoBuscado.getId().equals(id)) {
-                videojuegoBorrar = videojuegoBuscado;
-            }
-        }
-
-        if(videojuegoBorrar == null) {
-            throw new RecursoNoEncontradoException("No se ha encontrado el Videojuego con ID " + id);
-        }
-
-        videojuegoBorrar.setActivo(false);
-    }
-
-    public VideojuegoDetalleDto actualizarStock(Integer id, StockDto stockDto) {
-
-        Videojuego videojuegoActualizar = null;
-
-        for(Videojuego videojuegoBuscado : videojuegos) {
-            if(videojuegoBuscado.getId().equals(id)) {
-                videojuegoActualizar = videojuegoBuscado;
-            }
-        }
-
-        if(videojuegoActualizar == null) {
-            throw new RecursoNoEncontradoException("No se ha encontrado el Videojuego con ID " + id);
-        }
-
-        if(!videojuegoActualizar.getActivo()) {
-            throw new ConflictoException("No se puede actualizar el stock de un producto que no esta activado");
-        }
-
-        if(videojuegoActualizar.getStock() + stockDto.getCantidad() < 0) {
-            throw new ConflictoException("El stock no se puede quedar en negativo");
-        }
-
-        videojuegoActualizar.setStock(videojuegoActualizar.getStock() + stockDto.getCantidad());
-
-        return crearVideojuegoDetalleDto(videojuegoActualizar);
-    }
-
-    public VideojuegoDetalleDto reactivarVideojuego(Integer id) {
-
-        Videojuego videojuegoReactivar = null;
-
-        for(Videojuego videojuegoBuscado : videojuegos) {
-            if(videojuegoBuscado.getId().equals(id)) {
-                videojuegoReactivar = videojuegoBuscado;
-            }
-        }
-
-        if(videojuegoReactivar == null) {
-            throw new RecursoNoEncontradoException("No se ha encontrado el Videojuego con ID " + id);
-        }
-
-        videojuegoReactivar.setActivo(true);
-
-        return crearVideojuegoDetalleDto(videojuegoReactivar);
-    }
-
-    public VideojuegoDetalleDto crearVideojuegoDetalleDto(Videojuego videojuego) {
-
         return new VideojuegoDetalleDto(
-                videojuego.getId(),
-                videojuego.getSku(),
-                videojuego.getNombre(),
-                videojuego.getDescripcion(),
-                videojuego.getPrecio(),
-                videojuego.getStock(),
-                videojuego.getImagenUrl(),
-                videojuego.getActivo(),
-                videojuego.getDestacado(),
-                videojuego.getCategoria(),
-                videojuego.getPlataforma(),
-                videojuego.getDesarrolladora()
+                videojuegoNuevo.getId(),
+                videojuegoNuevo.getSku(),
+                videojuegoNuevo.getNombre(),
+                videojuegoNuevo.getDescripcion(),
+                videojuegoNuevo.getPrecio(),
+                videojuegoNuevo.getStock(),
+                videojuegoNuevo.getImagenUrl(),
+                videojuegoNuevo.getActivo(),
+                videojuegoNuevo.getDestacado(),
+                videojuegoNuevo.getCategoria(),
+                videojuegoNuevo.getPlataforma(),
+                videojuegoNuevo.getDesarrolladora()
         );
     }
 
@@ -558,4 +459,5 @@ public class VideojuegoService {
 
         return crearListaVideojuegoResumenDto(videojuegosList);
     }
+}
 }

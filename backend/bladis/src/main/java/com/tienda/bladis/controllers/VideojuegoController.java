@@ -1,6 +1,5 @@
 package com.tienda.bladis.controllers;
 
-import com.tienda.bladis.dtos.StockDto;
 import com.tienda.bladis.dtos.VideojuegoCrearDto;
 import com.tienda.bladis.dtos.VideojuegoDetalleDto;
 import com.tienda.bladis.enums.Direccion;
@@ -30,6 +29,7 @@ public class VideojuegoController {
     private CategoriaService categoriaService;
 
     @GetMapping("/videojuegos/{id}")
+
     public ResponseEntity<?> mostrarVideojuego(@PathVariable(required = false) Integer id) {
 
         VideojuegoDetalleDto videojuegoDto = videojuegoService.devolverVideojuegoActivo(id);
@@ -43,12 +43,12 @@ public class VideojuegoController {
     }
 
     @GetMapping("/admin/videojuegos")
-    public ResponseEntity<?> listarVideojuegos() {
+    public ResponseEntity<?> listarProductos() {
         return ResponseEntity.ok(videojuegoService.devolverVideojuegos());
     }
 
     @PostMapping("/admin/videojuegos")
-    public ResponseEntity<?> crearVideojuego(@RequestBody VideojuegoCrearDto videojuego) {
+    public ResponseEntity<?> crearProducto(@RequestBody VideojuegoCrearDto videojuego) {
 
         VideojuegoDetalleDto videojuegoDetalle = videojuegoService.crearVideojuego(videojuego);
 

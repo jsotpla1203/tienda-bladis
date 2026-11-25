@@ -1,7 +1,5 @@
 package com.tienda.bladis.dtos;
 
-import com.tienda.bladis.enums.Direccion;
-import com.tienda.bladis.enums.Orden;
 import com.tienda.bladis.enums.Plataforma;
 
 import java.math.BigDecimal;
