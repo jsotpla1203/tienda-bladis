@@ -25,13 +25,12 @@ public class FirebaseConfig {
         this.resourceLoader = resourceLoader;
     }
 
-    @PostConstruct /*Spring lo ejecuta una sola vez justo después de crear el objeto e inyectar el @Value, dejando Firebase listo antes de que cualquier usuario llame a la API*/
+    @PostConstruct
     public void inicializarFirebase() throws IOException {
-        if (FirebaseApp.getApps().isEmpty()) { /*Comprueba si firebase esta activo, para evitar fallos*/
-            Resource resource = resourceLoader.getResource(credentialsPath); /*Localiza y abre el archivo firebase-service-account.json con las credenciales de la cuenta de servicio.*/
-            HttpTransport transport = new ApacheHttpTransport(); /*Define el motor de red que usa el SDK de Firebase*/
+        if (FirebaseApp.getApps().isEmpty()) {
+            Resource resource = resourceLoader.getResource(credentialsPath);
+            HttpTransport transport = new ApacheHttpTransport();
 
-            /*Empaqueta tus credenciales y el transporte HTTP*/
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(resource.getInputStream(), () -> transport))
                     .setHttpTransport(transport)

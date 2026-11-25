@@ -1,7 +1,5 @@
 package com.tienda.bladis.dtos;
 
-import com.tienda.bladis.enums.Direccion;
-import com.tienda.bladis.enums.Orden;
 import com.tienda.bladis.enums.Plataforma;
 
 import java.math.BigDecimal;
@@ -14,8 +12,6 @@ public class VideojuegoFiltroDto {
     private BigDecimal precioMax;
     private Boolean soloDisponibles;
     private Plataforma plataforma;
-    private Orden orden;
-    private Direccion direccion;
 
     public VideojuegoFiltroDto() {
     }
