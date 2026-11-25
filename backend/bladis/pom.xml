@@ -11,7 +11,7 @@
 	<groupId>com.tienda</groupId>
 	<artifactId>bladis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bladis</name>
+	<name/>
 	<description/>
 	<url/>
 	<licenses>
@@ -30,33 +30,11 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
-		<!-- Spring Boot Web MVC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
-		<!-- Spring Security (Para proteger rutas y manejar 401/403) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
-		<!-- Firebase Admin SDK (Para Auth y Firestore) -->
-		<dependency>
-			<groupId>com.google.firebase</groupId>
-			<artifactId>firebase-admin</artifactId>
-			<version>9.2.0</version>
-		</dependency>
-
-		<!-- Lombok (Para simplificar modelos con @Data) -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
