@@ -1,13 +1,12 @@
 package com.tienda.bladis.services;
 
-import com.tienda.bladis.dtos.CarritoDto;
-import com.tienda.bladis.dtos.LineaCarritoActualizarDto;
-import com.tienda.bladis.dtos.LineaCarritoDto;
-import com.tienda.bladis.dtos.LineaCarritoCrearDto;
+import com.tienda.bladis.dtos.*;
 import com.tienda.bladis.enums.Plataforma;
+import com.tienda.bladis.exceptions.RecursoNoEncontradoException;
 import com.tienda.bladis.models.Carrito;
 import com.tienda.bladis.models.LineaCarrito;
 import com.tienda.bladis.models.Usuario;
+import com.tienda.bladis.models.Videojuego;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -24,7 +23,10 @@ import java.util.List;
 public class CarritoService {
 
 @Autowired
-    private UsuarioActualService usuarioActual;
+private UsuarioActualService usuarioActual;
+
+@Autowired
+private VideojuegoService videojuegoService;
 
 Carrito carrito;
 
@@ -61,7 +63,8 @@ Carrito carrito;
         BigDecimal faltaGratis = BigDecimal.ZERO;
 
     for (LineaCarrito linea : carrito.getLineas()){
-        subtotal.add(BigDecimal.valueOf(linea.getCantidad()).multiply(linea.getVideojuego().getPrecio()));
+
+        subtotal = subtotal.add(BigDecimal.valueOf(linea.getCantidad()).multiply(linea.getVideojuego().getPrecio()));
         numArticulos += linea.getCantidad();
     }
 
@@ -85,33 +88,43 @@ Carrito carrito;
 }
 
 public LineaCarritoDto anadirVideojuego(LineaCarritoCrearDto lineaCarritoCrearDto) {
+
         Carrito carrito = obtenerCarrito();
-    String nombre = null;
-    Integer cantidadProd = 0;
-    String url = null;
-    BigDecimal precio = BigDecimal.ZERO;
-    Plataforma plataforma = null;
+        LineaCarrito lineaCarrito = null;
+        Videojuego videojuego;
 
     for (LineaCarrito linea : carrito.getLineas()) {
 
         if (linea.getVideojuego().getId() == lineaCarritoCrearDto.getVideojuegoId()) {
-            cantidadProd += lineaCarritoCrearDto.getCantidad();
-        }
+            lineaCarrito = linea;
+            lineaCarrito.setCantidad(lineaCarritoCrearDto.getCantidad() + lineaCarrito.getCantidad());
 
-        cantidadProd = lineaCarritoCrearDto.getCantidad();
-        nombre = linea.getVideojuego().getNombre();
-        url = linea.getVideojuego().getImagenUrl();
-        precio = linea.getVideojuego().getPrecio();
-        plataforma = linea.getVideojuego().getPlataforma();
+            return new LineaCarritoDto(
+                    linea.getVideojuego().getNombre(),
+                    linea.getVideojuego().getImagenUrl(),
+                    linea.getVideojuego().getPrecio(),
+                    linea.getCantidad(),
+                    linea.getVideojuego().getPlataforma()
+            );
+        }
     }
+
+        videojuego = videojuegoService.videojuegos.stream()
+                .filter(v -> v.getId().equals(lineaCarritoCrearDto.getVideojuegoId()))
+                .findFirst()
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se ha encontrado el Videojuego"));
+
+        carrito.getLineas().add(new LineaCarrito(
+                videojuego,
+                lineaCarritoCrearDto.getCantidad()));
 
 
     return new LineaCarritoDto(
-            nombre,
-            url,
-            precio,
-            cantidadProd,
-            plataforma
+            videojuego.getNombre(),
+            videojuego.getImagenUrl(),
+            videojuego.getPrecio(),
+            lineaCarritoCrearDto.getCantidad(),
+            videojuego.getPlataforma()
     );
 }
 
