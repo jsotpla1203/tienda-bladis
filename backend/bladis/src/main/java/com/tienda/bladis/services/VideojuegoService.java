@@ -36,7 +36,7 @@ public class VideojuegoService {
                         "Elden Ring",
                         "Un RPG de acción y fantasía oscura ambientado en las Tierras Intermedias, creado por Hidetaka Miyazaki y George R. R. Martin.",
                         BigDecimal.valueOf(59.99),
-                        42,
+                        2,
                         "https://ejemplo.com/imagenes/elden-ring.jpg",
                         true,
                         true,

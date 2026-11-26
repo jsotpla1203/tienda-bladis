@@ -27,14 +27,14 @@ public class CarritoController {
     @PostMapping("/lineas")
     public ResponseEntity<LineaCarritoDto> anadirLinea(@RequestBody LineaCarritoCrearDto dto) {
 
-        LineaCarritoDto lineaActualizada = carritoService.anadirVideojuego(dto);
+        LineaCarritoDto lineaActualizada = carritoService.anadirLinea(dto);
         return ResponseEntity.ok(lineaActualizada);
     }
 
     @PutMapping("/lineas/{productoId}")
     public ResponseEntity<LineaCarritoDto> actualizarCantidad(@PathVariable Integer productoId,
                                                          @RequestBody LineaCarritoActualizarDto dto) {
-        LineaCarritoDto carritoActualizado = carritoService.modificarVideojuego(productoId, dto);
+        LineaCarritoDto carritoActualizado = carritoService.modificarLinea(productoId, dto);
         return ResponseEntity.ok(carritoActualizado);
     }
 
