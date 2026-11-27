@@ -8,6 +8,11 @@ public class LineaCarrito {
     public LineaCarrito() {
     }
 
+    public LineaCarrito(Videojuego videojuego, Integer cantidad) {
+        this.videojuego = videojuego;
+        this.cantidad = cantidad;
+    }
+
     public Videojuego getVideojuego() {
         return videojuego;
     }
