@@ -23,6 +23,9 @@ public class PedidoService {
     @Autowired
     private UsuarioActualService usuarioActualService;
 
+    @Autowired
+
+
     List<Pedido> pedidos = new ArrayList<>();
 
     public List<PedidoDto> filtrarPorEstado(EstadoPedido estado) {

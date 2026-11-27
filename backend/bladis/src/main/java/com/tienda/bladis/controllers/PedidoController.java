@@ -16,6 +16,13 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
+    /*
+    @PostMapping("/pedidos")
+    public ResponseEntity<?> filtarPorEstado(@RequestParam(required = false) EstadoPedido estado) {
+        return ResponseEntity.ok(pedidoService.filtrarPorEstado(estado));
+    }
+    */
+
     @GetMapping("/pedidos")
     public ResponseEntity<?> filtarPorEstado(@RequestParam(required = false) EstadoPedido estado) {
         return ResponseEntity.ok(pedidoService.filtrarPorEstado(estado));
@@ -32,7 +39,7 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/pedidos/{id}")
+    @GetMapping("/pedidos/admin/{id}")
     public ResponseEntity<?> filtrarPedidos(
             @RequestParam(required = false) EstadoPedido estado,
             @RequestParam(required = false) LocalDate desde,
