@@ -5,5 +5,14 @@ public enum EstadoPedido {
     PAGADO,
     ENVIADO,
     ENTREGADO,
-    CANCELADO
+    CANCELADO;
+
+    public boolean puedeCambiarA(EstadoPedido nuevo) {
+        return switch (this) {
+            case PENDIENTE -> nuevo == PAGADO || nuevo == CANCELADO;
+            case PAGADO -> nuevo == ENVIADO || nuevo == CANCELADO;
+            case ENVIADO -> nuevo == ENTREGADO;
+            case ENTREGADO, CANCELADO -> false;
+        };
+    }
 }
