@@ -453,8 +453,8 @@ public class VideojuegoService {
 
         List<Videojuego> videojuegosList = videojuegos.stream().
                 filter(v -> filtros.getQ() == null ||
-                        v.getNombre().equalsIgnoreCase(filtros.getQ().trim()) ||
-                        v.getDescripcion().equalsIgnoreCase(filtros.getQ().trim()))
+                        v.getNombre().toLowerCase().contains(filtros.getQ().trim().toLowerCase()) ||
+                        v.getDescripcion().toLowerCase().contains(filtros.getQ().trim().toLowerCase()))
                 .toList();
 
         return crearListaVideojuegoResumenDto(videojuegosList);
@@ -462,13 +462,15 @@ public class VideojuegoService {
 
     public List<VideojuegoResumenDto> filtrarPrecio(VideojuegoFiltroDto filtros) {
 
-        if(filtros.getPrecioMin() != null && filtros.getPrecioMax() == null && filtros.getPrecioMax().compareTo(filtros.getPrecioMin()) < 0) {
+        if(filtros.getPrecioMin() != null && filtros.getPrecioMax() != null && filtros.getPrecioMax().compareTo(filtros.getPrecioMin()) < 0) {
             throw new FormatoInvalidoException("El precio maximo no puede ser menor al minimo");
         }
 
-        List<Videojuego> videojuegosList = videojuegos.stream().
-                filter(v -> filtros.getSoloDisponibles() == null ||
-                        !filtros.getSoloDisponibles() || v.getActivo() && v.getStock() > 0)
+        List<Videojuego> videojuegosList = videojuegos.stream()
+                .filter(v -> filtros.getPrecioMin() == null ||
+                        v.getPrecio().compareTo(filtros.getPrecioMin()) >= 0)
+                .filter(v -> filtros.getPrecioMax() == null ||
+                        v.getPrecio().compareTo(filtros.getPrecioMax()) <= 0)
                 .toList();
 
         return crearListaVideojuegoResumenDto(videojuegosList);
@@ -476,10 +478,23 @@ public class VideojuegoService {
 
     public List<VideojuegoResumenDto> filtrarDisponibles(VideojuegoFiltroDto filtros) {
 
-        List<Videojuego> videojuegosList = videojuegos.stream().
-                filter(v -> filtros.getSoloDisponibles() == null ||
-                        !filtros.getSoloDisponibles() || v.getActivo() && v.getStock() > 0)
-                .toList();
+        List<Videojuego> videojuegosList = new ArrayList<>();
+
+        if(filtros.getSoloDisponibles() == null) {
+
+            return crearListaVideojuegoResumenDto(videojuegos);
+
+        } else if(filtros.getSoloDisponibles()) {
+
+            videojuegosList = videojuegos.stream().
+                    filter(v -> v.getActivo() && v.getStock() > 0)
+                    .toList();
+        } else {
+
+            videojuegosList = videojuegos.stream().
+                    filter(v -> !v.getActivo() || v.getStock() <= 0)
+                    .toList();
+        }
 
         return crearListaVideojuegoResumenDto(videojuegosList);
     }
